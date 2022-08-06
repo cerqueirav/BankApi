@@ -14,7 +14,7 @@ namespace BankApi.Controllers
         [HttpPost]
         public void Create([FromBody] Cliente cliente)
         {
-            cliente.Id = Id++;
+            cliente.ClienteId = Id++;
             listaClientes.Add(cliente);
         }
 
@@ -27,13 +27,13 @@ namespace BankApi.Controllers
         [HttpGet("{id:int}")]
         public Cliente Reader(int id) 
         {
-            return listaClientes.FirstOrDefault(cliente => cliente.Id.Equals(id));
+            return listaClientes.FirstOrDefault(cliente => cliente.ClienteId.Equals(id));
         }
 
         [HttpPut("{id:int}")]
         public void Update(int id, [FromBody] Cliente novoCliente)
         {
-            var cliente = listaClientes.FirstOrDefault(cliente => cliente.Id.Equals(id));
+            var cliente = listaClientes.FirstOrDefault(cliente => cliente.ClienteId.Equals(id));
 
             cliente.Nome = novoCliente.Nome;
             cliente.Cpf = novoCliente.Cpf;
@@ -42,7 +42,7 @@ namespace BankApi.Controllers
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            var cliente = listaClientes.FirstOrDefault(cliente => cliente.Id.Equals(id));
+            var cliente = listaClientes.FirstOrDefault(cliente => cliente.ClienteId.Equals(id));
 
             if(cliente is not null)
                 listaClientes.Remove(cliente);

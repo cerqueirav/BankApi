@@ -8,46 +8,51 @@ namespace BankApi
     [Route("[controller]")]
     public class ContaController
     {
-        static List<Conta> listaContas = new List<Conta>();
-        static int Id = 1;
+        private readonly BankContext _bankContext;
+
+        public ContaController(BankContext bankContext)
+        {
+            _bankContext = bankContext; 
+        }
 
         [HttpPost]
         public void Create([FromBody] Conta conta)
         {
-            conta.Id = Id++;
-            listaContas.Add(conta);
+
+            _bankContext.Contas.Add(conta);
+            _bankContext.SaveChanges();
         }
 
-        [HttpGet]
-        public List<Conta> Reader()
-        {
-            return listaContas;
-        }
+        //[HttpGet]
+        //public List<Conta> Reader()
+        //{
+        //    return listaContas;
+        //}
 
-        [HttpGet ("{id:int}")]
-        public Conta Reader(int id)
-        {
-            return listaContas.FirstOrDefault(conta => conta.Id == id);
-        }
+        //[HttpGet ("{id:int}")]
+        //public Conta Reader(int id)
+        //{
+        //    return listaContas.FirstOrDefault(conta => conta.ContaId == id);
+        //}
 
-        [HttpPut("{id:int}")]
-        public void Update(int id, Conta novaConta)
-        {
-            var conta = listaContas.FirstOrDefault(conta => conta.Id == id);
+        //[HttpPut("{id:int}")]
+        //public void Update(int id, Conta novaConta)
+        //{
+        //    var conta = listaContas.FirstOrDefault(conta => conta.ContaId == id);
 
-            conta.Cliente = novaConta.Cliente;
-            conta.Saldo = novaConta.Saldo;
+        //    conta.Cliente = novaConta.Cliente;
+        //    conta.Saldo = novaConta.Saldo;
             
-        }
+        //}
 
 
-        [HttpDelete("{id:int}")]
-        public void Delete(int id)
-        {
-            Conta conta = listaContas.FirstOrDefault(conta => conta.Id == id);
+        //[HttpDelete("{id:int}")]
+        //public void Delete(int id)
+        //{
+        //    Conta conta = listaContas.FirstOrDefault(conta => conta.ContaId == id);
 
-            listaContas.Remove(conta);
-        }
+        //    listaContas.Remove(conta);
+        //}
 
     }
 }
